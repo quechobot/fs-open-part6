@@ -1,6 +1,5 @@
-import { createSlice, current } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import anecdoteService from '../services/anecdotes'
-import anecdotes from "../services/anecdotes";
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 

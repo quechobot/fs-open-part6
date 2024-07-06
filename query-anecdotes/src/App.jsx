@@ -3,6 +3,7 @@ import { getAnecdotes,updateAnecdote  } from './request/requests'
 
 import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
+import {useNotificationDispatch} from "./NotificationContext.jsx";
 
 const App = () => {
   const queryClient = useQueryClient()
@@ -20,6 +21,7 @@ const App = () => {
 
   const anecdotes = result.data
 
+  const dispatch = useNotificationDispatch()
   if ( result.isLoading ) {
     return <div>loading data...</div>
   }
@@ -29,7 +31,12 @@ const App = () => {
   }
 
   const handleVote = (anecdote) => {
+    const content = anecdote.content
     updateAnecdoteMutation.mutate({...anecdote, votes: anecdote.votes+1 })
+    dispatch({ type: 'voted', content })
+    setTimeout(() => {
+      dispatch({type:null})
+    }, 5000)
   }
 
   return (
